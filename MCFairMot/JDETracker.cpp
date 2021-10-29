@@ -11,7 +11,9 @@ JDETracker::JDETracker(JDETrackerConfig &config, int frame_rate)
 	max_time_lost_ = opt_.max_lost_time;
 	num_class_ = opt_.num_class;
 	kal_filter_ = std::shared_ptr<KalmanFilterTracking>(new KalmanFilterTracking());
-	
+	for (int i = 0; i < num_class_; i++) {
+		track_ids_[i] = 0;
+	}
 }
 
 JDETracker::~JDETracker()
@@ -100,9 +102,11 @@ std::tuple<std::vector<std::shared_ptr<STrack>>, std::vector<std::shared_ptr<STr
 std::map<int, std::vector<std::shared_ptr<STrack>>> JDETracker::UpdateTracking(std::map<int, std::vector<DetectionBox>>& dets, std::map<int, std::vector<cv::Mat>>& feats)
 {
 	frame_id_ += 1;
-	if (frame_id_ > 600) {
-		for (int cls = 0; cls < num_class_; cls++)
-			STrack::ResetTrackID(cls);
+	if (this->frame_id_ % 15000 == 0) {
+		for (int cls = 0; cls < num_class_; cls++) {
+			track_ids_[cls] = 0;
+		}
+		frame_id_ = 0;
 	}
 	std::map<int, std::vector<std::shared_ptr<STrack>>> output_stracks;
 
@@ -231,7 +235,8 @@ std::map<int, std::vector<std::shared_ptr<STrack>>> JDETracker::UpdateTracking(s
 			{
 				continue;
 			}
-			track->Activate(kal_filter_, frame_id_);
+			track_ids_[cls]++;
+			track->Activate(kal_filter_, frame_id_, track_ids_[cls]);
 			activated_starcks.push_back(track);
 		}
 		/**********Step 5: Update state"""*/

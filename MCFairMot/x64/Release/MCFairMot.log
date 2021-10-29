@@ -1,4 +1,22 @@
 ﻿D:\Install\VS2019\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(499,5): warning MSB8004: Output 目录未以斜杠结尾。  此生成实例将添加斜杠，因为必须有这个斜杠才能正确计算 Output 目录。
+  JDETracker.cpp
+F:\Tensorrt\Track\MCFairMot\MCFairMot\JDETracker.cpp(145,92): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+F:\Tensorrt\Track\MCFairMot\MCFairMot\JDETracker.cpp(180,99): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+F:\Tensorrt\Track\MCFairMot\MCFairMot\JDETracker.cpp(215,101): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  Matching.cpp
+F:\Tensorrt\Track\MCFairMot\MCFairMot\Matching.cpp(41,16): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+F:\Tensorrt\Track\MCFairMot\MCFairMot\Matching.cpp(67,24): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
+F:\Tensorrt\Track\MCFairMot\MCFairMot\Matching.cpp(68,48): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
+F:\Tensorrt\Track\MCFairMot\MCFairMot\Matching.cpp(117,31): warning C4244: “参数”: 从“_Ty”转换到“_Ty”，可能丢失数据
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty=float
+          ]
+  STrack.cpp
   main.cpp
 F:\Tensorrt\Track\MCFairMot\TensorRT-7.2.3.4\include\NvInfer.h(1784,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 F:\Tensorrt\Track\MCFairMot\TensorRT-7.2.3.4\include\NvInfer.h(4337,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -26,8 +44,8 @@ F:\Tensorrt\Track\MCFairMot\MCFairMot\main.cpp(29,35): warning C4244: “参数�
           ]
 F:\Tensorrt\Track\MCFairMot\MCFairMot\main.cpp(56,1): warning C4326: “main”的返回类型应为“int”而非“void”
   正在生成代码
-  2 of 6432 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    231 functions had inline decision re-evaluated but remain unchanged
+  138 of 6415 functions ( 2.2%) were compiled, the rest were copied from previous compilation.
+    2 functions were new in current compilation
+    261 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   MCFairMot.vcxproj -> F:\Tensorrt\Track\MCFairMot\bin\MCFairMot.exe

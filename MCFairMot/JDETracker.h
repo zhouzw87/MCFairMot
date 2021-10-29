@@ -29,6 +29,6 @@ private:
 	int buffer_size_;
 	int max_time_lost_;
 	int num_class_;
-
+	std::map<int, int> track_ids_;
 	std::shared_ptr<KalmanFilterTracking> kal_filter_;
 };

@@ -15,22 +15,22 @@ public:
 	STrack& operator=(const STrack&) = delete;
 public:
 	void Predict();
-	void Activate(std::shared_ptr<KalmanFilterTracking> kal_filter, int frame_id);
-	void Reactivate(std::shared_ptr<STrack> new_track, int frame_id, bool new_id = false);
+	void Activate(std::shared_ptr<KalmanFilterTracking> kal_filter, int frame_id, int track_id);
+	void Reactivate(std::shared_ptr<STrack> new_track, int frame_id, int track_id, bool new_id = false);
 	void Update(std::shared_ptr<STrack> new_track, int frame_id, bool update_feature = true);
 	DETECTBOX TlwhToBox();
 	cv::Rect_<float> TlwhToRect();
 	DETECTBOX TlwhToXyah(const cv::Rect_<float>& tlwh);
 
-	static int NextTrackID(int cls_id);
-	static void ResetTrackID(int cls_id);
-	static  std::map<int, int> InitTrackCount(int num_cls);
+	//static int NextTrackID(int cls_id);
+	//static void ResetTrackID(int cls_id);
+	//static  std::map<int, int> InitTrackCount(int num_cls);
 
 private:
 	void updateFeatures(cv::Mat& feat);
 
 private:
-	static std::map<int, int> _track_count;
+	//static std::map<int, int> _track_count;
 
 	int _tracklet_len = 0;
 	float _alpha = 0.9f;

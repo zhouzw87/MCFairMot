@@ -1,5 +1,5 @@
 #include "STrack.h"
-std::map<int, int> STrack::_track_count = STrack::InitTrackCount(num_class);
+//std::map<int, int> STrack::_track_count = STrack::InitTrackCount(num_class);
 
 STrack::STrack(cv::Rect_<float>& tlwh, float det_score, cv::Mat temp_feat, int cls_id)
 	:_tlwh(tlwh)
@@ -51,10 +51,10 @@ DETECTBOX STrack::TlwhToXyah(const cv::Rect_<float>& tlwh)
 }
 
 //Start a new tracklet
-void STrack::Activate(std::shared_ptr<KalmanFilterTracking> kal_filter, int frame_id)
+void STrack::Activate(std::shared_ptr<KalmanFilterTracking> kal_filter, int frame_id, int track_id)
 {
 	_kal_filter = kal_filter;
-	_track_id = NextTrackID(_class_id);
+	_track_id = track_id;
 	auto ret = _kal_filter->initiate(TlwhToXyah(_tlwh));
 	_mean = ret.first;
 	_covariance = ret.second;
@@ -69,7 +69,7 @@ void STrack::Activate(std::shared_ptr<KalmanFilterTracking> kal_filter, int fram
 	_trajectory.push_back(_tlwh);
 }
 
-void STrack::Reactivate(std::shared_ptr<STrack> new_track, int frame_id, bool new_id)
+void STrack::Reactivate(std::shared_ptr<STrack> new_track, int frame_id, int track_id, bool new_id)
 {
 	auto ret = _kal_filter->update(_mean, _covariance, TlwhToXyah(new_track->TlwhToRect()));
 	_mean = ret.first;
@@ -82,7 +82,7 @@ void STrack::Reactivate(std::shared_ptr<STrack> new_track, int frame_id, bool ne
 	_trajectory.push_back(new_track->TlwhToRect());
 	if (new_id)
 	{
-		_track_id = NextTrackID(_class_id);
+		_track_id = track_id;
 	}
 }
 
@@ -128,20 +128,20 @@ cv::Rect_<float> STrack::TlwhToRect()
 }
 
 
-std::map<int, int> STrack::InitTrackCount(int num_cls)
-{
-	std::map<int, int>  t_count;
-	for (int i = 0; i < num_cls; i++) {
-		t_count[i] = 0;
-	}
-	return t_count;
-}
-int STrack::NextTrackID(int cls_id)
-{
-	_track_count[cls_id] += 1;
-	return _track_count[cls_id];
-}
-void STrack::ResetTrackID(int cls_id)
-{
-	_track_count[cls_id] = 0;
-}
+//std::map<int, int> STrack::InitTrackCount(int num_cls)
+//{
+//	std::map<int, int>  t_count;
+//	for (int i = 0; i < num_cls; i++) {
+//		t_count[i] = 0;
+//	}
+//	return t_count;
+//}
+//int STrack::NextTrackID(int cls_id)
+//{
+//	_track_count[cls_id] += 1;
+//	return _track_count[cls_id];
+//}
+//void STrack::ResetTrackID(int cls_id)
+//{
+//	_track_count[cls_id] = 0;
+//}
